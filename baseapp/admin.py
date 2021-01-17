@@ -1,9 +1,11 @@
 from django.contrib import admin
+from django import forms
 
 from .models import Person
 from .models import Customer
 from .models import Employee
 from .models import Position
+from .models import Task
 
 # Register your models here.
 
@@ -34,9 +36,22 @@ class CustomerAdmin(admin.ModelAdmin):
 	search_fields = ('name', 'inn',)
 	list_filter = ( 'kpp', )
 	inlines = [EmployeeInline, ]
+
+
+class TaskAdmin(admin.ModelAdmin):
+	list_display = (	
+		'__str__',
+		'task_status',
+		'customer',
+		'performer',		
+	)
+		
+	list_filter = ( 'task_status', )
+	
 	
 
 admin.site.register(Person, PersonAdmin)
 admin.site.register(Customer, CustomerAdmin)
 admin.site.register(Position)
+admin.site.register(Task, TaskAdmin)
 
