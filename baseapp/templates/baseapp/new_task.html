@@ -3,50 +3,71 @@
 {% block data %}
 <div class="container">
 
-	<div class="new-task">
-		<form method="post" action="{% url 'create_task' %}">
-			
+	
+	<form method="post" action="{% url 'create_task' %}">
+		<div class="new-task">		
 			{% csrf_token %}
 			
 			<div class="new-task-item">
 				<select name="customer">
-					<option>
-						
+					<option value="0">
+					------	
 					</option>
+					{% for customer in customers %}
+					<option value="{{ customer.id }}">
+					{{ customer.name }}
+					</option>
+					{% endfor %}
 				</select>
 			</div>
 			<div class="new-task-item">
 				<select name="from_customer">
-					<option>
-						
+					<option value="0">
+					------	
 					</option>
+					{% for employee in employes %}
+					<option value="{{ employee.id }}">
+					{{ employee.name }}
+					</option>
+					{% endfor %}
 				</select>
 			</div>
 			<div class="new-task-item">
 				<select name="performer">
-					<option>
-						
+					<option value="0">
+					------	
 					</option>
+					{% for customer in customers %}
+					<option value="{{ customer.id }}">
+					{{ customer.name }}
+					</option>
+					{% endfor %}
 				</select>
 			</div>
 			<div class="new-task-item">
 				<select name="from_performer">
-					<option>
-						
+					<option value="0">
+					------	
 					</option>
+					{% for employee in employes %}
+					<option value="{{ employee.id }}">
+					{{ employee.name }}
+					</option>
+					{% endfor %}
 				</select>
 			</div>
 			<div class="new-task-item">
 				<input type="date" name="dead_line">
 			</div>
 			<div class="new-task-item">
-				<input type="text" name="description">
+				<textarea name="description"></textarea>
 			</div>
 
 			<div class="new-task-item">
 				<button type="submit">Сохранить</button>
 			</div>
-		</form>
-	</div>
+		</div>
+	</form>
+	
 </div>
 {% endblock %}

@@ -4,7 +4,16 @@
 <div class="container">
 
 	<div class="task">
-		<div><h1>{{task}}</h1></div>
+		<div><h1>{{ task }}</h1></div>
+		<div><h5>{{ task.description }}</h5></div>
+		<div><h5>{{ task.dead_line }}</h5></div>
+		{% if task.task_status == "A" %}
+		<div><a class="button" href="{% url 'set_b' id=task.id %}">На выполнение</a></div>
+		{% elif task.task_status == "B" %}
+		<div><a class="button" href="{% url 'set_c' id=task.id %}">На проверку</a></div>
+		{% else %}
+		<div><a class="button" href="{% url 'set_b' id=task.id %}">На исправление</a><a class="button" href="{% url 'set_d' id=task.id %}">Выполнить</a></div>
+		{% endif %}
 	</div>
 </div>
 {% endblock %}

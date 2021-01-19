@@ -1,7 +1,16 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 
+from .models import Customer
+from .models import Employee
 from .models import Task
+
+from .core import get_a
+from .core import get_b
+from .core import get_c
+from .core import create_new_task
+
+from datetime import datetime
 # Create your views here.
 def show_grid(request):
 
@@ -22,23 +31,62 @@ def show_task(request, id):
 
 
 def new_task(request):
-	
-	return render(request, 'baseapp/new_task.html', {})
+	context = {
+		'customers': Customer.objects.all(),
+		'employes': Employee.objects.all(),
+	}
+	return render(request, 'baseapp/new_task.html', context)
 
 
 def create_task(request):
 	
+	customer_id = int(request.POST.get('customer', '0'))
+	from_customer_id = int(request.POST.get('from_customer', '0'))
+	
+	performer_id = int(request.POST.get('performer', '0'))
+	from_performer_id = int(request.POST.get('from_performer', '0'))
+		
+	dead_line = datetime.strptime(request.POST.get('dead_line', ''), '%Y-%m-%d')
+
 	description = request.POST.get('description', '')
-	print(description)
-	return redirect('/')
 
 
+	customer = Customer.objects.filter(id=customer_id).first()
+	from_customer = Employee.objects.filter(id=from_customer_id).first()
 
-def get_a():
-	return Task.objects.filter(task_status='A')
+	performer = Customer.objects.filter(id=performer_id).first()
+	from_performer = Employee.objects.filter(id=from_performer_id).first()
 
-def get_b():
-	return Task.objects.filter(task_status='B')
+	if create_new_task(customer=customer, 
+		from_customer=from_performer, 
+		performer=performer, 
+		from_performer=from_performer, 
+		dead_line=dead_line, 
+		description=description):
 
-def get_c():
-	return Task.objects.filter(task_status='C')
+		return redirect('show_grid')
+	return redirect(request.META['HTTP_REFERER'])
+
+
+def set_b(request, id):
+
+	task = Task.objects.get(id=id)
+	task.task_status = 'B'
+	task.save()
+	return redirect('show_grid')
+
+
+def set_c(request, id):
+
+	task = Task.objects.get(id=id)
+	task.task_status = 'C'
+	task.save()
+	return redirect('show_grid')
+
+
+def set_d(request, id):
+
+	task = Task.objects.get(id=id)
+	task.task_status = 'D'
+	task.save()
+	return redirect('show_grid')
