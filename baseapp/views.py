@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
+
 from .models import Task
 # Create your views here.
 def show_grid(request):
@@ -10,12 +12,26 @@ def show_grid(request):
 	}
 	return render(request, 'baseapp/grid.html', context)
 
-def show_item(request, id):
+
+def show_task(request, id):
 
 	context = {
 		'task': Task.objects.get(id=id)
 	}
-	return render(request, 'baseapp/item.html', context)
+	return render(request, 'baseapp/task.html', context)
+
+
+def new_task(request):
+	
+	return render(request, 'baseapp/new_task.html', {})
+
+
+def create_task(request):
+	
+	description = request.POST.get('description', '')
+	print(description)
+	return redirect('/')
+
 
 
 def get_a():

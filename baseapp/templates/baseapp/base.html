@@ -8,7 +8,18 @@
 	<link rel="stylesheet" href="{% static 'style/style.css' %}">
 </head>
 <body>
-{% block data %}
-{% endblock %}
+	<div class="navbar">
+		<div>
+
+		</div>	
+		<div>
+			<a class="button" href="{% url 'new_task' %}">Новая задача</a>
+		</div>
+		<div>
+			<a class="button" href="">Войти</a>
+		</div>
+	</div>
+	{% block data %}
+	{% endblock %}
 </body>
 </html>

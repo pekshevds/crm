@@ -1,0 +1,52 @@
+{% extends 'baseapp/base.html' %}
+
+{% block data %}
+<div class="container">
+
+	<div class="new-task">
+		<form method="post" action="{% url 'create_task' %}">
+			
+			{% csrf_token %}
+			
+			<div class="new-task-item">
+				<select name="customer">
+					<option>
+						
+					</option>
+				</select>
+			</div>
+			<div class="new-task-item">
+				<select name="from_customer">
+					<option>
+						
+					</option>
+				</select>
+			</div>
+			<div class="new-task-item">
+				<select name="performer">
+					<option>
+						
+					</option>
+				</select>
+			</div>
+			<div class="new-task-item">
+				<select name="from_performer">
+					<option>
+						
+					</option>
+				</select>
+			</div>
+			<div class="new-task-item">
+				<input type="date" name="dead_line">
+			</div>
+			<div class="new-task-item">
+				<input type="text" name="description">
+			</div>
+
+			<div class="new-task-item">
+				<button type="submit">Сохранить</button>
+			</div>
+		</form>
+	</div>
+</div>
+{% endblock %}

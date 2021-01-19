@@ -6,14 +6,18 @@
 	<div class="column">
 		<div><h1>Запланированы</h1></div>
 		{% for task in a %}
-		<div><h1><a href="{% url 'show_item' id=task.id %}">{{ task }}</a></h1></div>		
+		<div class="task">
+			<div><h1><a class="button" href="{% url 'show_task' id=task.id %}">{{ task }}</a></h1></div>
+			<div><h5>{{ task.description }}</h5></div>
+			<div><h5>{{ task.dead_line }}</h5></div>
+		</div>
 		{% endfor %}
 	</div>
 	<div class="column">
 		<div><h1>Выполняются</h1></div>
 		{% for task in b %}
 		<div class="task">
-			<div><h1><a href="{% url 'show_item' id=task.id %}">{{ task }}</a></h1></div>
+			<div><h1><a class="button" href="{% url 'show_task' id=task.id %}">{{ task }}</a></h1></div>
 			<div><h5>{{ task.description }}</h5></div>
 			<div><h5>{{ task.dead_line }}</h5></div>
 		</div>		
@@ -22,7 +26,11 @@
 	<div class="column">
 		<div><h1>Проверяются</h1></div>
 		{% for task in c %}
-		<div><h1><a href="{% url 'show_item' id=task.id %}">{{ task }}</a></h1></div>		
+		<div class="task">
+			<div><h1><a class="button" href="{% url 'show_task' id=task.id %}">{{ task }}</a></h1></div>
+			<div><h5>{{ task.description }}</h5></div>
+			<div><h5>{{ task.dead_line }}</h5></div>
+		</div>
 		{% endfor %}
 	</div>
 </div>
