@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<h1 id="json"></h1>
+	<script type="text/javascript">
+
+		var request = new XMLHttpRequest();
+		request.open('GET', "{% url 'show_answer' %}");
+		request.responseType = 'text';
+
+		request.onload = function() {
+			var json = document.getElementById('json');			
+			var result = JSON.parse(request.response);
+			json.innerHTML = result['key'];
+		};
+
+		request.send();
+	</script>
+</body>
+</html>

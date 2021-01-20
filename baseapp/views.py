@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 
+from django.http import HttpResponse
+from django.http import JsonResponse
+
 from .models import Customer
 from .models import Employee
 from .models import Task
@@ -9,8 +12,11 @@ from .core import get_a
 from .core import get_b
 from .core import get_c
 from .core import create_new_task
+from .core import get_employes
 
 from datetime import datetime
+
+import json
 # Create your views here.
 def show_grid(request):
 
@@ -90,3 +96,11 @@ def set_d(request, id):
 	task.task_status = 'D'
 	task.save()
 	return redirect('show_grid')
+
+
+def get_employes_json(request, id):
+	customer = Customer.objects.filter(id=id).first()
+	employes = get_employes(customer).values()
+
+	data = list(employes)
+	return JsonResponse(data, safe=False)

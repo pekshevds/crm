@@ -22,3 +22,6 @@ def create_new_task(customer, from_customer, performer, from_performer, dead_lin
 	except:
 		return False
 	return True
+
+def get_employes(customer):
+	return Employee.objects.filter(customer=customer)

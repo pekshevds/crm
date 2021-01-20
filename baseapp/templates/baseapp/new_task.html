@@ -4,7 +4,7 @@
 <div class="container">
 
 	
-	<form method="post" action="{% url 'create_task' %}">
+	<form method="post" action="{% url 'create_task' %}" name="myForm">
 		<div class="new-task">		
 			{% csrf_token %}
 			
@@ -24,12 +24,7 @@
 				<select name="from_customer">
 					<option value="0">
 					------	
-					</option>
-					{% for employee in employes %}
-					<option value="{{ employee.id }}">
-					{{ employee.name }}
-					</option>
-					{% endfor %}
+					</option>					
 				</select>
 			</div>
 			<div class="new-task-item">
@@ -48,12 +43,7 @@
 				<select name="from_performer">
 					<option value="0">
 					------	
-					</option>
-					{% for employee in employes %}
-					<option value="{{ employee.id }}">
-					{{ employee.name }}
-					</option>
-					{% endfor %}
+					</option>					
 				</select>
 			</div>
 			<div class="new-task-item">
@@ -68,6 +58,63 @@
 			</div>
 		</div>
 	</form>
-	
+
+<h1 id="json"></h1>
 </div>
+<script type="text/javascript">
+	/*/v1/get_employes/1*/
+	
+	/*var id = '1';
+	var request = new XMLHttpRequest();
+	request.open('GET', "{% url 'get_employes' id=1 %}");
+	request.responseType = 'text';
+
+	request.onload = function() {
+		var json = document.getElementById('json');			
+		var result = JSON.parse(request.response);
+		json.innerHTML = result[1].name;
+	};
+
+	request.send();*/
+
+	/*function fill_in_options(){
+		alert('1');
+		var id = this.options[this.selectedIndex].value;
+
+		var json = document.getElementById('json');
+		json.innerHTML = "hello world";
+	}*/
+
+	var customerSelect = myForm.customer;
+
+	function changeOption(){
+		
+		var urls = new Map();
+		urls.set("1", "{% url 'get_employes' id=1 %}");
+		urls.set("2", "{% url 'get_employes' id=2 %}"); 
+		urls.set("3", "{% url 'get_employes' id=3 %}");
+		var value = customerSelect.options[customerSelect.selectedIndex].value;
+
+
+
+		var request = new XMLHttpRequest();
+		request.open('GET', urls.get(value));
+		request.responseType = 'text';
+		
+		json.innerHTML = "";
+
+		request.onload = function() {
+			var json = document.getElementById('json');			
+			var result = JSON.parse(request.response);
+			json.innerHTML = result[0].name;
+		};
+		request.send();
+		
+
+		/*var value = customerSelect.options[customerSelect.selectedIndex].text;*/
+		/*json.innerHTML = value;*/
+	}
+
+	customerSelect.addEventListener("change", changeOption);
+</script>
 {% endblock %}
